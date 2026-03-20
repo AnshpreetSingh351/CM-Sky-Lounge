@@ -283,6 +283,16 @@ body{
 @keyframes candlePulse{0%{opacity:.7}50%{opacity:1}100%{opacity:.6}}
 @keyframes cityBlink{0%{opacity:.2}100%{opacity:.9}}
 
+@media(min-width:901px){
+  html,body{overflow:hidden;height:100%}
+  .scene-block{justify-content:flex-end}
+  .text-block{padding-bottom:0;justify-content:center}
+  .eyebrow{margin-bottom:16px}
+  .main-title{margin-bottom:0}
+  .description{margin:14px 0 20px}
+  .cta-row{margin-top:0}
+}
+
 @media(max-width:900px){
   .composition{grid-template-columns:1fr;padding:0}
   .text-block{padding:120px 30px 30px;align-items:center;text-align:center;order:1}
