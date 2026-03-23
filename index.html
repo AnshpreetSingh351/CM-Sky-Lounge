@@ -123,13 +123,6 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="fpin">Pincode</label>
-          <input class="form-input" type="text" id="fpin" name="pincode"
-                 placeholder="000000" maxlength="6" pattern="\d{6}"
-                 required inputmode="numeric">
-        </div>
-
-        <div class="form-group">
           <label class="form-label" for="fphone">Phone Number</label>
           <div class="phone-wrap">
             <span class="phone-prefix">+91</span>
@@ -141,10 +134,9 @@
 
       </div>
 
-      <!-- Replace href with your actual destination link -->
-      <a href="https://www.cminfiniaimmersive.com/SubPages/Tower_Mall.html" class="btn-continue" id="continueBtn" target="_blank" rel="noopener">
+      <button type="button" class="btn-continue" id="continueBtn">
         Continue &rarr;
-      </a>
+      </button>
 
       <p class="modal-note">Your information is safe with us &nbsp;&middot;&nbsp; No spam, ever.</p>
     </form>
@@ -255,6 +247,34 @@ const portal = document.querySelector('.arch-portal');
 document.addEventListener('mousemove', e => {
   const x = (e.clientX/W-.5)*2, y = (e.clientY/H-.5)*2;
   portal.style.transform = 'translate('+(x*6)+'px,'+(y*4)+'px)';
+});
+
+/* ── Form validation & continue ── */
+document.getElementById('continueBtn').addEventListener('click', function(){
+  const form = document.getElementById('loungeForm');
+  const inputs = form.querySelectorAll('input[required]');
+  let valid = true;
+
+  inputs.forEach(input => {
+    input.classList.remove('input-error');
+    const isEmpty = !input.value.trim();
+    const patternFails = input.pattern && !new RegExp('^'+input.pattern+'$').test(input.value.trim());
+
+    if(isEmpty || patternFails){
+      valid = false;
+      input.classList.add('input-error');
+      input.addEventListener('input', () => input.classList.remove('input-error'), {once:true});
+    }
+  });
+
+  if(valid){
+    window.open('https://www.cminfiniaimmersive.com/SubPages/Tower_Mall.html','_blank','noopener');
+  } else {
+    // Shake the button
+    const btn = document.getElementById('continueBtn');
+    btn.classList.add('shake');
+    btn.addEventListener('animationend', () => btn.classList.remove('shake'), {once:true});
+  }
 });
 
 /* ── Modal logic ── */
